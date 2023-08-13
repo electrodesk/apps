@@ -2,7 +2,9 @@
   "name": "@electron-e2e/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "all": "nx run-many --target=serve --all --maxParallel=100"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.1.0",
@@ -14,6 +16,7 @@
     "@angular/platform-browser-dynamic": "~16.1.0",
     "@angular/router": "~16.1.0",
     "@nx/angular": "16.6.0",
+    "@trueffelmafia/electron-api": "^0.0.13",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -40,6 +43,7 @@
     "@types/node": "16.11.7",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
+    "bootstrap": "^5.3.1",
     "cypress": "^12.16.0",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
