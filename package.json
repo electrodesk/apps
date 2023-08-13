@@ -51,7 +51,7 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-preset-angular": "~13.1.0",
     "nx": "16.6.0",
-    "prettier": "^2.6.2",
+    "prettier": "^3.0.0",
     "purgecss": "^5.0.0",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
