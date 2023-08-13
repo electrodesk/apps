@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Employee, EmployeeRepository } from '@app/domain';
 import { EmployeState } from '../model/user-state';
+import { MessageService } from '@trueffelmafia/electron-api';
 
 type ModelFormGroup<T> = FormGroup<{
   [K in keyof T]: FormControl<T[K]>
@@ -23,7 +24,8 @@ export class FormComponent implements OnInit {
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
     private readonly userRepository: EmployeeRepository,
-    private readonly userState: EmployeState
+    private readonly userState: EmployeState,
+    @Inject('ElectronMessageService') private readonly messageService: MessageService
   ) {
     this.userForm = this.createUserForm()
   }
@@ -35,16 +37,22 @@ export class FormComponent implements OnInit {
     }
   }
 
+  /**
+   * TODO refactor logic should not be in component
+   */
   save(): void {
     const user = this.userState.selected()
     const formData = this.userForm.getRawValue()
 
     if (!user) {
-      this.userRepository.insert(formData)
+      const inserted = this.userRepository.insert(formData)
+      this.messageService.send('application', 'employee', 'insert', inserted)
     } else {
-      this.userRepository.update(user.uid, formData)
+      const updated = this.userRepository.update(user.uid, formData)
+      this.messageService.send('application', 'employee', 'update', updated)
     }
 
+    // send message
     this.toList()
   }
 

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
-import { Employee } from "../entity/Employe";
 import { AbstractRepository } from "./Abstract.repository";
-import { EMPLOYEES } from "../data/employees";
+import { TEAMS } from "../data/teams";
+import type { Team } from "../entity/Team";
 
 /**
  * alternate use Injection Tokens so we can say
@@ -12,6 +12,6 @@ import { EMPLOYEES } from "../data/employees";
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeRepository extends AbstractRepository<Employee> {
-  protected override data = EMPLOYEES
+export class TeamRepository extends AbstractRepository<Team> {
+  protected override data = TEAMS;
 }

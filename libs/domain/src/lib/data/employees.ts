@@ -52,7 +52,7 @@ export const EMPLOYEES: Employee[] = [
   },
   {
     bereich: 'Anforderungsmanagement',
-    lastName: 'unbekannt',
+    lastName: 'Hussein',
     name: 'Yara',
     uid: 8,
     project: 'QAIP'
