@@ -3,6 +3,7 @@ import { ApplicationRepository } from './domain/repository/Application.repositor
 import { CommonModule } from '@angular/common';
 import { Application } from './domain/entity/Applikation.entity';
 import { DashboardCardComponent } from './components/card';
+import { ApplicationService } from '@trueffelmafia/electron-api';
 
 @Component({
   standalone: true,
@@ -18,12 +19,7 @@ export class AppComponent {
   applications = this.repository.applications
 
   openApp(application: Application) {
-    // bad typings
-    (window as any).tm_electron.exec({
-      command: 'application:open',
-      payload: {
-        url: application.url
-      }
-    })
+    // data should be undefined by default
+    ApplicationService.open(application.url, void 0)
   }
 }

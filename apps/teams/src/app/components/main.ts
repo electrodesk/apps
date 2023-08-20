@@ -1,11 +1,12 @@
 import { Component, NgZone, inject } from '@angular/core';
-import {CdkTableModule} from '@angular/cdk/table';
+import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { TeamEmployeesComponent } from './employees';
 import { Message } from '@trueffelmafia/electron-types';
 import { Employee, Team, TeamDataSource, EmployeeRepository } from '@app/domain'
 import { ListState } from '../model/List.state';
 import { IsCollapsedPipe } from '../pipes/collapsed.pipe';
+import { ApplicationService } from '@trueffelmafia/electron-api';
 
 @Component({
   selector: 'teams-list',
@@ -23,7 +24,7 @@ import { IsCollapsedPipe } from '../pipes/collapsed.pipe';
     EmployeeRepository
   ]
 })
-export class ListPageComponent  {
+export class ListPageComponent {
 
   displayedColumns: (keyof Team)[] = ['bereich', 'project'];
 
@@ -47,6 +48,11 @@ export class ListPageComponent  {
     })
   }
 
+  addEmployee(): void {
+    const payload = { action: 'create' };
+    ApplicationService.open('http://localhost:4202', payload, true)
+  }
+
   toggleRow(team: Team): void {
     this.listState.select(team)
   }
@@ -62,7 +68,6 @@ export class ListPageComponent  {
     }
 
     const employee = message.payload;
-    console.log(employee)
     this.employeeRepository.update(employee.uid, employee)
   }
 }

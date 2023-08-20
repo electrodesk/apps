@@ -18,7 +18,7 @@
     <td [attr.colspan]="displayedColumns.length" *ngIf="!(element | teamsIsCollpased)">
       <ng-container>
         <teams-employees [filter]="element.bereich"></teams-employees>
-        <button class="btn btn-sm btn-dark ms-auto d-block mb-1">Mitglied hinzufuegen</button>
+        <button class="btn btn-sm btn-dark ms-auto d-block mb-1" (click)="addEmployee()">Mitglied hinzufuegen</button>
       </ng-container>
     </td>
     </ng-container>
