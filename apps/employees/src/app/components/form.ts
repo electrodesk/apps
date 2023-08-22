@@ -1,9 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { Employee, EmployeeRepository } from '@app/domain';
-import { EmployeState } from '../model/user-state';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Employee, EmployeeReadDTO, EmployeeRepository } from '@app/domain';
 import { MessageService } from '@trueffelmafia/electron-api';
 
 type ModelFormGroup<T> = FormGroup<{
@@ -16,56 +15,47 @@ type ModelFormGroup<T> = FormGroup<{
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule]
 })
-export class FormComponent implements OnInit {
+export class FormComponent {
 
-  public userForm: ModelFormGroup<Omit<Employee, 'uid'>>;
+  public userForm: ModelFormGroup<Omit<EmployeeReadDTO, 'uid'>>;
+
+  private employee: Employee;
 
   constructor(
     private readonly formBuilder: FormBuilder,
     private readonly router: Router,
+    private readonly activatedRoute: ActivatedRoute,
     private readonly userRepository: EmployeeRepository,
-    private readonly userState: EmployeState,
     @Inject('ElectronMessageService') private readonly messageService: MessageService
   ) {
-    this.userForm = this.createUserForm()
-  }
-
-  ngOnInit(): void {
-    const user = this.userState.selected()
-    if (user) {
-      this.userForm.patchValue(user)
-    }
+    this.employee = this.activatedRoute.snapshot.data['employee']
+    this.userForm = this.createUserForm(this.employee)
   }
 
   /**
    * TODO refactor logic should not be in component
    */
   save(): void {
-    const user = this.userState.selected()
     const formData = this.userForm.getRawValue()
-
-    if (!user) {
+    if (this.employee.uid === undefined) {
       const inserted = this.userRepository.insert(formData)
       this.messageService.send('application', 'employee', 'insert', inserted)
     } else {
-      const updated = this.userRepository.update(user.uid, formData)
+      const updated = this.userRepository.update(this.employee.uid, formData)
       this.messageService.send('application', 'employee', 'update', updated)
     }
-
-    // send message
-    this.toList()
   }
 
   toList(): void {
     this.router.navigate(['..'])
   }
 
-  private createUserForm(): FormGroup {
+  private createUserForm(employee?: Employee): FormGroup {
     return this.userForm = this.formBuilder.nonNullable.group({
-      bereich: this.formBuilder.nonNullable.control(''),
-      lastName: this.formBuilder.nonNullable.control(''),
-      name: this.formBuilder.nonNullable.control(''),
-      project: this.formBuilder.nonNullable.control('')
+      bereich: this.formBuilder.nonNullable.control(employee?.bereich ?? ''),
+      lastName: this.formBuilder.nonNullable.control(employee?.lastName ?? ''),
+      name: this.formBuilder.nonNullable.control(employee?.name ?? ''),
+      project: this.formBuilder.nonNullable.control(employee?.project ?? '')
     })
   }
 }

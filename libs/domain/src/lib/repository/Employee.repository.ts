@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Employee } from "../entity/Employe";
+import { Employee, EmployeeReadDTO } from "../entity/Employe";
 import { AbstractRepository } from "./Abstract.repository";
 import { EMPLOYEES } from "../data/employees";
 
@@ -12,6 +12,15 @@ import { EMPLOYEES } from "../data/employees";
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeRepository extends AbstractRepository<Employee> {
+export class EmployeeRepository extends AbstractRepository<EmployeeReadDTO> {
   protected override data = EMPLOYEES
+
+  get ghost(): Employee  {
+    return {
+      bereich: '',
+      lastName: '',
+      name: '',
+      project: ''
+    }
+  }
 }

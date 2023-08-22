@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Employee, EmployeeDataSource } from '@app/domain'
+import { EmployeeReadDTO, EmployeeDataSource } from '@app/domain'
 import { EmployeState } from '../model/user-state';
 
 @Component({
@@ -16,9 +16,9 @@ import { EmployeState } from '../model/user-state';
 })
 export class UsersComponent implements OnInit {
 
-  displayedColumns: (keyof Employee)[];
+  displayedColumns: (keyof EmployeeReadDTO)[];
 
-  selected$: Observable<Employee | undefined>
+  selected$: Observable<EmployeeReadDTO | undefined>
 
   @Input()
   filter = 'QA'
@@ -37,10 +37,15 @@ export class UsersComponent implements OnInit {
   }
 
   openForm(): void {
-    this.router.navigate(['./create'])
+    const employeeId: EmployeeReadDTO['uid'][] = []
+    const selected = this.userState.selected()
+    if (selected) {
+      employeeId.push(selected.uid)
+    }
+    this.router.navigate(['./form', ...employeeId])
   }
 
-  clickUser(user: Employee): void {
+  clickUser(user: EmployeeReadDTO): void {
     this.userState.toggleSelection(user)
   }
 }

@@ -1,6 +1,6 @@
-import { Employee } from "../entity/Employe";
+import { EmployeeReadDTO } from "../entity/Employe";
 
-export const EMPLOYEES: Employee[] = [
+export const EMPLOYEES: EmployeeReadDTO[] = [
   {
     bereich: 'QA',
     lastName: 'Rower',

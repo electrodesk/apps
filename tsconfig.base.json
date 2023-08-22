@@ -15,7 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@app/domain": ["libs/domain/src/index.ts"]
+      "@app/api": ["libs/api/src/lib/employee/index.ts"],
+      "@app/domain": ["libs/domain/src/index.ts"],
+      "@lib/config": ["libs/config/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

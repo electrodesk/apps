@@ -1,4 +1,4 @@
-<table cdk-table [dataSource]="dataSource" class="table table-bordered">
+<table cdk-table [dataSource]="dataSource" class="table table-bordered" multiTemplateDataRows>
 
   <!-- Weight Column -->
   <ng-container cdkColumnDef="name">
@@ -15,6 +15,14 @@
     </td>
   </ng-container>
 
+  <ng-container cdkColumnDef="action">
+    <td cdk-footer-cell *cdkFooterCellDef="" colspan="2">
+      <button class="btn btn-sm btn-dark ms-auto d-block" (click)="handleAction()">Click me</button>
+    </td>
+  </ng-container>
+
   <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-  <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+  <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;" (click)="selectEmployee(row)"></tr>
+  <tr cdk-footer-row *cdkFooterRowDef="['action']"></tr>
+
 </table>

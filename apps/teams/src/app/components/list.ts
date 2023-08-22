@@ -1,16 +1,16 @@
-import { Component, NgZone, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgZone, inject, signal } from '@angular/core';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
-import { TeamEmployeesComponent } from './employees';
 import { Message } from '@trueffelmafia/electron-types';
-import { Employee, Team, TeamDataSource, EmployeeRepository } from '@app/domain'
+import { EmployeeReadDTO, Team, TeamDataSource, EmployeeRepository } from '@app/domain'
+import { TeamEmployeesComponent } from './employees';
 import { ListState } from '../model/List.state';
 import { IsCollapsedPipe } from '../pipes/collapsed.pipe';
-import { ApplicationService } from '@trueffelmafia/electron-api';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'teams-list',
-  templateUrl: './main.html',
+  templateUrl: './list.html',
   standalone: true,
   imports: [
     CdkTableModule,
@@ -22,13 +22,15 @@ import { ApplicationService } from '@trueffelmafia/electron-api';
     TeamDataSource,
     ListState,
     EmployeeRepository
-  ]
+  ],
 })
 export class ListPageComponent {
 
-  displayedColumns: (keyof Team)[] = ['bereich', 'project'];
+  readonly displayedColumns: (keyof Team)[] = ['bereich', 'project'];
 
-  dataSource = inject(TeamDataSource);
+  readonly dataSource = inject(TeamDataSource);
+
+  readonly employee = signal<EmployeeReadDTO | null>(null)
 
   // @TODO refactor and remove from component
   private employeeRepository = inject(EmployeeRepository)
@@ -42,15 +44,14 @@ export class ListPageComponent {
     this.zone.runOutsideAngular(() => {
       window.tm_electron.message((message) => {
         if (message.sender === 'employee') {
-          this.zone.run(() => this.onUserMessage(message as Message.MainProcessMessage<Employee>))
+          this.zone.run(() => this.onUserMessage(message as Message.MainProcessMessage<EmployeeReadDTO>))
         }
       })
     })
   }
 
-  addEmployee(): void {
-    const payload = { action: 'create' };
-    ApplicationService.open('http://localhost:4202', payload, true)
+  employeeSelectionChange(employee: EmployeeReadDTO | null): void {
+    this.employee.set(employee)
   }
 
   toggleRow(team: Team): void {
@@ -61,7 +62,7 @@ export class ListPageComponent {
     return item.uid;
   }
 
-  private onUserMessage(message: Message.MainProcessMessage<Employee>): void {
+  private onUserMessage(message: Message.MainProcessMessage<EmployeeReadDTO>): void {
     if (message.action === 'insert') {
       this.employeeRepository.insert(message.payload)
       return

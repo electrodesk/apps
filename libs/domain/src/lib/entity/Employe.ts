@@ -1,4 +1,4 @@
-export interface Employee {
+export interface EmployeeReadDTO {
   uid: number
 
   name: string
@@ -8,4 +8,8 @@ export interface Employee {
   bereich: string
 
   project: string
+}
+
+export interface Employee extends Omit<EmployeeReadDTO, 'uid'> {
+  uid?: EmployeeReadDTO['uid']
 }

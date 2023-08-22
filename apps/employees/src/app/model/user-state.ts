@@ -1,20 +1,20 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Employee } from '@app/domain'
+import { EmployeeReadDTO } from '@app/domain'
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeState {
 
-  private selctionModel: SelectionModel<Employee> = new SelectionModel(false)
+  private selctionModel: SelectionModel<EmployeeReadDTO> = new SelectionModel(false)
 
-  toggleSelection(employee: Employee) {
+  toggleSelection(employee: EmployeeReadDTO) {
     this.selctionModel.toggle(employee)
   }
 
-  selected(): Employee | undefined {
+  selected(): EmployeeReadDTO | undefined {
     return this.selctionModel.selected[0];
   }
 
@@ -22,7 +22,7 @@ export class EmployeState {
     this.selctionModel.clear()
   }
 
-  onChange(): Observable<Employee | undefined> {
+  onChange(): Observable<EmployeeReadDTO | undefined> {
     return this.selctionModel.changed.pipe(
       map(() => this.selected())
     );
