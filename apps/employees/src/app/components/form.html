@@ -1,0 +1,35 @@
+<div class="body" [formGroup]="userForm">
+
+  <div class="form-group mb-3">
+    <label for="">Name</label>
+    <input type="text" name="" id="name" formControlName="name" class="form-control form-control-sm">
+  </div>
+  <div class="form-group mb-3">
+    <label for="">Nachnamen</label>
+    <input type="text" name="" id="nachname" formControlName="lastName" class="form-control form-control-sm">
+  </div>
+  <div class="form-group mb-3">
+    <label for="team">Team</label>
+    <select id="team" class="form-control" formControlName="bereich">
+      <option value="Anforderungsmanagement">Anforderungsmanagement</option>
+      <option value="Backend">Backend</option>
+      <option value="Frontend">Frontend</option>
+      <option value="Teamleiter">Teamleiter</option>
+      <option value="QA">QA</option>
+    </select>
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="project">Projekt</label>
+
+    <select id="project" class="form-control" formControlName="project">
+      <option value="QAIP">QAIP</option>
+    </select>
+  </div>
+</div>
+
+<div class="footer d-flex flex-row justify-content-between">
+  <button class="btn btn-dark" (click)="toList()">Zurück</button>
+
+  <button class="btn btn-dark" (click)="save()">Speichern</button>
+</div>

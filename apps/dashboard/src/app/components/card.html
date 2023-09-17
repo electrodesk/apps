@@ -1,0 +1,19 @@
+<div class="card h-100" *ngIf="application">
+  <div class="card-img-top">
+    <img [attr.src]="application.icon" width="100%">
+  </div>
+  <div class="card-body">
+    <div class="card-title">{{application.name}}</div>
+    <div class="card-text mb-3">{{application.description}}</div>
+  </div>
+
+  <div class="card-footer">
+    <button
+      class="btn btn-sm btn-dark m-auto d-block card-action"
+      (click)="handleOpenApp()"
+      [attr.testId]="'dashboard-card-' + application.id + '-action'"
+    >
+      Open App
+    </button>
+  </div>
+</div>

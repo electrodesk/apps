@@ -1,0 +1,30 @@
+<table cdk-table [dataSource]="dataSource" [trackBy]="trackByPosition" multiTemplateDataRows class="table border-collapse table-dark">
+  <!-- Project Column -->
+  <ng-container cdkColumnDef="project">
+    <th cdk-header-cell *cdkHeaderCellDef> Projekt </th>
+    <td cdk-cell *cdkCellDef="let element"> {{element.project}} </td>
+  </ng-container>
+
+  <!-- Bereich Column -->
+  <ng-container cdkColumnDef="bereich">
+    <th cdk-header-cell *cdkHeaderCellDef> Bereich </th>
+    <td cdk-cell *cdkCellDef="let element">
+      {{element.bereich}}
+    </td>
+  </ng-container>
+
+  <ng-container cdkColumnDef="expandedDetail">
+    <ng-container cdk-cell *cdkCellDef="let element">
+    <td [attr.colspan]="displayedColumns.length" *ngIf="!(element | teamsIsCollpased)">
+      <ng-container>
+        <teams-employees [filter]="element.bereich"></teams-employees>
+      </ng-container>
+    </td>
+    </ng-container>
+
+  </ng-container>
+
+  <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+  <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;" (click)="toggleRow(row)"></tr>
+  <tr cdk-row *cdkRowDef="let row; columns: ['expandedDetail']" class="example-detail-row p-0 m-0"></tr>
+</table>
