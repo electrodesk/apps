@@ -2,7 +2,7 @@
   "name": "todo-list",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "trueffelmafia",
+  "prefix": "todo",
   "sourceRoot": "apps/todo-list/src",
   "tags": [],
   "targets": {
@@ -20,7 +20,13 @@
           "apps/todo-list/src/assets"
         ],
         "styles": ["apps/todo-list/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "assets/scss",
+            "libs/assets"
+          ]
+        }
       },
       "configurations": {
         "production": {
