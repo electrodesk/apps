@@ -22,6 +22,7 @@ export class AppComponent {
   applications = this.repository.applications
 
   async openApp(application: Application) {
-    this.applicationService.open(application.url, null, true)
+    const app = await this.applicationService.open(application.url, null, true)
+    console.log(app)
   }
 }

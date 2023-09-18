@@ -5,7 +5,6 @@ export class ConfigService<T = unknown> {
 
   uuid = Math.random().toString(32)
 
-
   // downside we can only observe all of this
   private config?: T;
 

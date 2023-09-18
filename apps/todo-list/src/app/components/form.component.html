@@ -1,0 +1,20 @@
+<div class="container-fluid" [formGroup]="form">
+  <div class="row">
+    <div class="col-12">
+      <div class="form-group row">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Task</label>
+        <div class="col-sm-10">
+          <input type="text" formControlName="task" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-3">
+      <div class="form-group row">
+        <label for="colFormLabel" class="col-sm-2 col-form-label">Completed</label>
+        <div class="col-sm-10">
+          <input type="checkbox" formControlName="completed" class="form-check-input">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
