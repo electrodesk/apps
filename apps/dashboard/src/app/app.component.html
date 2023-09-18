@@ -4,13 +4,20 @@
   </nav>
 </header>
 
-<div class="container">
-  <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
-    <dashboard-card class="col"
-      *ngFor="let application of applications()"
-      [application]="application"
-      (openApp)="openApp($event)"
-    >
-    </dashboard-card>
+<div class="container-fluid">
+  <div class="d-flex">
+    <div class="container-fluid">
+      <div class="flex-grow-1 row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+        <dashboard-card class="col"
+          *ngFor="let application of applications()"
+          [application]="application"
+          (openApp)="openApp($event)"
+        >
+        </dashboard-card>
+      </div>
+    </div>
+
+    <dashboard-todo-widget class="flex-shrink-1 d-block"></dashboard-todo-widget>
   </div>
+
 </div>

@@ -1,25 +1,27 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ApplicationRepository } from './domain/repository/Application.repository';
 import { CommonModule } from '@angular/common';
-import { Application } from './domain/entity/Applikation.entity';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ApplicationService } from '@electrodesk/api';
 import { DashboardCardComponent } from './components/card';
-import { ApplicationService } from '@trueffelmafia/electron-api';
+import { Application } from './domain/entity/Applikation.entity';
+import { ApplicationRepository } from './domain/repository/Application.repository';
+import { TodoWidgetComponent } from './components/todo-widget';
 
 @Component({
   standalone: true,
   selector: 'dashboard-root',
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, DashboardCardComponent]
+  imports: [CommonModule, DashboardCardComponent, TodoWidgetComponent]
 })
 export class AppComponent {
 
   private repository = inject(ApplicationRepository)
 
+  private readonly applicationService = inject(ApplicationService)
+
   applications = this.repository.applications
 
-  openApp(application: Application) {
-    // data should be undefined by default
-    ApplicationService.open(application.url, void 0)
+  async openApp(application: Application) {
+    this.applicationService.open(application.url, null, true)
   }
 }

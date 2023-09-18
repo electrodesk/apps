@@ -17,9 +17,9 @@
     "@angular/platform-browser": "~16.2.0",
     "@angular/platform-browser-dynamic": "~16.2.0",
     "@angular/router": "~16.2.0",
+    "@electrodesk/api": "0.0.6",
     "@nrwl/node": "^16.7.2",
     "@nx/angular": "16.7.2",
-    "@trueffelmafia/electron-api": "^0.0.14",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -42,7 +42,6 @@
     "@nx/web": "16.7.2",
     "@nx/workspace": "16.7.2",
     "@schematics/angular": "~16.2.0",
-    "@trueffelmafia/electron-types": "^0.0.33",
     "@types/jest": "^29.4.0",
     "@types/node": "18.17.5",
     "@typescript-eslint/eslint-plugin": "5.60.1",

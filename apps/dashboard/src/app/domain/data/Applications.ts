@@ -14,12 +14,5 @@ export const Applications: Application[] = [
     icon: '/assets/img/employees.svg',
     name: 'Employes',
     url: 'http://localhost:4202'
-  },
-  {
-    id: 'teams',
-    description: 'App to show teams',
-    icon: '/assets/img/teams.svg',
-    name: 'Teams',
-    url: 'http://localhost:4203'
   }
 ]

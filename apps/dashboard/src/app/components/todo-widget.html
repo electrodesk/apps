@@ -1,0 +1,6 @@
+<h1>Todo List</h1>
+<ul>
+  <li *ngFor="let todo of todo$ | async">
+    {{todo.task}} {{todo.completed}} <button (click)="editTodo(todo)">edit</button>
+  </li>
+</ul>

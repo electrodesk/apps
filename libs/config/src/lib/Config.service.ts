@@ -7,7 +7,7 @@ export class ConfigService<T = unknown> {
 
 
   // downside we can only observe all of this
-  config?: T;
+  private config?: T;
 
   set(config: T): void {
     this.config = config
