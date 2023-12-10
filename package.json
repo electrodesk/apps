@@ -57,7 +57,7 @@
     "prettier": "^2.6.2",
     "purgecss": "^5.0.0",
     "ts-jest": "^29.1.0",
-    "ts-node": "10.9.1",
+    "ts-node": "10.9.2",
     "typescript": "~5.1.3"
   }
 }
